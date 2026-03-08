@@ -2433,5 +2433,149 @@ html:not(.dark) .txn-stat-value {
 .txn-stat-value.down {
     color: #fb7185;
 }
+/* ══════════════════════════════════════════════════
+   TOAST
+   ══════════════════════════════════════════════════ */
+.toast-wrap {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 100;
+    max-width: 384px;
+    width: 100%;
+    transform: translateY(40px);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.5s ease-out;
+}
+
+.toast-wrap.visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.toast-inner {
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid;
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+html.dark .toast-inner {
+    background: rgba(15, 23, 42, 0.9);
+    border-color: #1e293b;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 15px rgba(16, 185, 129, 0.05);
+}
+
+html:not(.dark) .toast-inner {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: #e2e8f0;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+}
+
+.toast-icon-wrap {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+}
+
+.toast-icon-wrap i {
+    color: #34d399;
+}
+
+.toast-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.toast-title {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+html.dark .toast-title {
+    color: #fff;
+}
+
+html:not(.dark) .toast-title {
+    color: #0f172a;
+}
+
+.toast-subtitle {
+    font-size: 12px;
+    margin-top: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+html.dark .toast-subtitle {
+    color: #94a3b8;
+}
+
+html:not(.dark) .toast-subtitle {
+    color: #475569;
+}
+
+.toast-close {
+    flex-shrink: 0;
+    padding: 4px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+html.dark .toast-close {
+    color: #64748b;
+}
+
+html:not(.dark) .toast-close {
+    color: #94a3b8;
+}
+
+.toast-close:hover {
+    color: #fff;
+}
+
+html.dark .toast-close:hover {
+    background: #1e293b;
+}
+
+html:not(.dark) .toast-close:hover {
+    background: #f1f5f9;
+}
+
+.toast-close i {
+    width: 16px;
+    height: 16px;
+}
+
+.nse-tag {
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+html.dark .nse-tag {
+    color: #475569;
+}
+
+html:not(.dark) .nse-tag {
+    color: #94a3b8;
+}
+
 
 
