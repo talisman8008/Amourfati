@@ -192,7 +192,26 @@ input[type=range]::-moz-range-thumb {
 /*===============*/
 /*panel card sys*/
 /*===============*/
+.panel {
+    border-radius: 16px;
+    border: 1px solid;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
 
+html.dark .panel {
+    background: #0f172a;
+    border-color: #1e293b;
+}
+
+html:not(.dark) .panel {
+    background: #ffffff;
+    border-color: #e2e8f0;
+}
+
+.panel-fixed-height {
+    height: 620px;
 
 
 
@@ -506,4 +525,4 @@ html:not(.dark) .wl-company {
 
 .wl-item.active .wl-company {
     color: #94a3b8;
-}
+}}
