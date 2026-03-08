@@ -229,6 +229,13 @@ function renderTradeDesk() {
     const estCost = (qty * stock.currentPrice).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
     const estCostElement = document.querySelector('.est-cost strong');
     if(estCostElement) estCostElement.innerText = `₹${estCost}`;
+
+    // style.js ke renderTradeDesk function ke andar search kar:
+    const marketStatus = document.querySelector('.market-status');
+    if (marketStatus) {
+        marketStatus.innerHTML = `<i data-lucide="clock"></i> Market Open`;
+        marketStatus.style.color = "#34d399"; // Always Green for Demo
+    }
 }
 
 function renderSummary() {
@@ -602,7 +609,37 @@ window.closeAlert = () => {
     }
 };
 
+// =====================================
+// MARKET COUNTDOWN TIMER LOGIC
+// =====================================
+function updateMarketTimer() {
+    const timerElement = document.getElementById('market-timer');
+    if (!timerElement) return;
 
+    /* INTERVIEW TIP: Bolna ki "For the purpose of this demo, I've implemented a
+       Presentation Mode that overrides the real-time clock to ensure the
+       dashboard remains active and the countdown logic can be showcased."
+    */
 
+    // Real time ki jagah hum ek static 2-hour countdown simulate karenge
+    // Jo har second kam hoga lekin kabhi 'Closed' nahi hoga demo ke waqt
+    const now = new Date();
+
+    // Hum assume kar rahe hain ki market 2 hours 45 mins mein band hoga
+    // Yeh countdown hamesha active dikhega
+    const mockH = 02;
+    const mockM = 45;
+    const mockS = 60 - now.getSeconds();
+
+    const displayM = (mockM - now.getMinutes() % 60 + 60) % 60;
+
+    timerElement.innerText = `${mockH.toString().padStart(2, '0')}h ${displayM.toString().padStart(2, '0')}m ${mockS.toString().padStart(2, '0')}s`;
+
+    // Hamesha green rakho presentation ke liye
+    timerElement.style.color = "#34d399";
+}
+
+// Call it in initApp and also set interval
+setInterval(updateMarketTimer, 1000);
 
 document.addEventListener('DOMContentLoaded', initApp);

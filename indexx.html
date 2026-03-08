@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>VTrade | Home</title>
+    <title>VTrade | Dashboard</title>
     <meta name="description" content="A premium virtual stock trading dashboard for Indian markets.">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -35,6 +35,12 @@
                 V<span>Trade</span>
             </h1>
         </a>
+
+        <div class="api-status desktop-only" id="market-timer-wrap" style="min-width: 140px;">
+            <i data-lucide="timer" style="width:14px;height:14px;"></i>
+            <span id="market-timer" class="font-mono">00:00:00</span>
+        </div>
+
         <div class="nav-actions">
             <div class="volatility-wrap desktop-only">
                 <div class="vol-header">
