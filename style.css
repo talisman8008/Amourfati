@@ -77,10 +77,98 @@ html.dark body{
     text-transform: uppercase;
     letter-spacing: 0.1em;
 }
-search-sort {
+.search-sort {
     padding: 12px;
     border-bottom: 1px solid;
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.watchlist {
+    overflow-y: auto;
+    flex: 1;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.wl-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+html.dark .wl-item:hover {
+    background: rgba(30, 41, 59, 0.4);
+    border-color: #1e293b;
+}
+
+html:not(.dark) .wl-item:hover {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+}
+
+.wl-item.active {
+    border-color: #334155;
+}
+
+html.dark .wl-item.active {
+    background: rgba(30, 41, 59, 0.7);
+    border-color: #334155;
+}
+
+html:not(.dark) .wl-item.active {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+.wl-name {
+    font-size: 14px;
+    font-weight: 700;
+    transition: color 0.2s;
+}
+
+html.dark .wl-name {
+    color: #cbd5e1;
+}
+
+html:not(.dark) .wl-name {
+    color: #475569;
+}
+
+.wl-item.active .wl-name {
+    color: #ffffff;
+}
+
+html:not(.dark) .wl-item.active .wl-name {
+    color: #0f172a;
+}
+
+.wl-item:hover .wl-name {
+    color: #34d399;
+}
+
+.wl-company {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+}
+html.dark .wl-company {
+    color: #64748b;
+}
+
+html:not(.dark) .wl-company {
+    color: #94a3b8;
+}
+
+.wl-item.active .wl-company {
+    color: #94a3b8;
 }
