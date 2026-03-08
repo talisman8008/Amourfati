@@ -1,5 +1,16 @@
-//mock data
-const DEFAULT_MARKET = [
+// =============================
+//intilizing vars and consts
+// =============================
+    const storageKey='state_v1';
+    const initBalance=10_000;//initial balance
+    const priceTicker=3500;//time in ms
+    const tickVolatile=0.018;//+-1.8%
+
+// =============================
+//Mock data
+// =============================
+
+const defaultMarket = [
     {
      id: 1, ticker: 'AAPL',
         name: 'Apple Inc.',
@@ -97,3 +108,46 @@ const DEFAULT_MARKET = [
         change: 0
     },
 ];
+
+// =============================
+//inti state
+// =============================
+
+let state={
+    balance:initBalance,
+    mrkt:[],
+    portfolio:[],
+}
+//initilize state
+function initFreshState(){
+    state.balance = initBalance;
+    state.mrkt = defaultMarket.map(s=>({...s,change:0}))
+    state.portfolio=[];
+}
+
+// =====================================
+//local memomry storage for persistance
+// =====================================
+
+//saving the state to local storage
+function loadState() {
+    try {
+        const raw = localStorage.getItem(storageKey);
+        if (!raw) return initFreshState();
+        const saved = JSON.parse(raw);
+        // Merge saved market prices back onto the default market list, keeps new stocks in DEFAULT_MARKET appear.
+        const priceMap = {};
+        (saved.market || []).forEach(s => {
+            priceMap[s.ticker] = { price: s.currentPrice, change: s.change || 0 }; });
+
+        state.balance = typeof saved.balance === 'number' ? saved.balance : initBalance;
+        state.portfolio = Array.isArray(saved.portfolio) ? saved.portfolio : [];
+        state.market = defaultMarket.map(s => ({
+            ...s,
+            currentPrice: priceMap[s.ticker]?.price ?? s.currentPrice,
+            change: priceMap[s.ticker]?.change ?? 0,
+        }));
+    } catch {
+        initFreshState();
+    }
+}
