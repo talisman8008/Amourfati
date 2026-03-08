@@ -433,6 +433,303 @@
 
     </section>
 </main>
+<!-- ════════════════════════════════════════════════════════════════════
+       SCROLLYTELLING: TRANSACTION HISTORY
+       ════════════════════════════════════════════════════════════════════ -->
+<div class="scrolly-divider"></div>
+
+<section class="container scrolly-section">
+    <!-- Section Header -->
+    <div class="scrolly-header">
+        <div class="scrolly-icon">
+            <i data-lucide="scroll-text" style="width:20px;height:20px;"></i>
+        </div>
+        <div>
+            <h2 class="scrolly-title">Transaction History</h2>
+            <p class="scrolly-subtitle">Scroll through your past trades</p>
+        </div>
+    </div>
+
+    <!-- Scrollytelling Flex Container -->
+    <div class="scrolly-flex">
+
+        <!-- LEFT SIDE: Sticky Chart -->
+        <div class="scrolly-left">
+            <div class="scrolly-sticky">
+                <div class="chart-panel">
+                    <!-- Chart Header -->
+                    <div class="chart-header">
+                        <div class="chart-header-left">
+                            <i data-lucide="line-chart" style="width:20px;height:20px;"></i>
+                            <h3>Portfolio Performance</h3>
+                        </div>
+                        <div class="chart-period-btns">
+                            <button class="chart-period-btn active">1M</button>
+                            <button class="chart-period-btn">3M</button>
+                            <button class="chart-period-btn">1Y</button>
+                            <button class="chart-period-btn">ALL</button>
+                        </div>
+                    </div>
+
+                    <!-- Chart Area -->
+                    <div class="chart-body" id="chart-container">
+                        <div class="chart-glow">
+                            <div></div>
+                        </div>
+                        <div class="chart-gradient"></div>
+
+                        <!-- Placeholder -->
+                        <div class="chart-placeholder">
+                            <div class="chart-placeholder-icon">
+                                <i data-lucide="bar-chart-3" style="width:40px;height:40px;"></i>
+                            </div>
+                            <p>Chart.js Canvas</p>
+                            <p>
+                                Replace this div with a <code>&lt;canvas&gt;</code>
+                                element to render your portfolio performance chart.
+                            </p>
+                        </div>
+
+                        <!-- Grid Lines -->
+                        <div class="chart-grid">
+                            <div class="chart-grid-h"></div>
+                            <div class="chart-grid-h"></div>
+                            <div class="chart-grid-h"></div>
+                            <div class="chart-grid-v"></div>
+                            <div class="chart-grid-v"></div>
+                            <div class="chart-grid-v"></div>
+                        </div>
+                    </div>
+
+                    <!-- Chart Footer Stats -->
+                    <div class="chart-footer">
+                        <div>
+                            <p class="cf-label">Total Trades</p>
+                            <p class="cf-value font-mono">6</p>
+                        </div>
+                        <div>
+                            <p class="cf-label">Win Rate</p>
+                            <p class="cf-value up font-mono">66.7%</p>
+                        </div>
+                        <div>
+                            <p class="cf-label">Net Return</p>
+                            <p class="cf-value up font-mono">+₹2,500</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT SIDE: Transaction Cards -->
+        <div class="scrolly-right">
+
+            <!-- Transaction 1 — BUY -->
+            <div class="txn-card buy">
+                <div class="txn-glow"></div>
+                <div class="txn-content">
+                    <div class="txn-meta">
+                        <span class="txn-icon"><i data-lucide="arrow-down-left"></i></span>
+                        <span class="txn-type">Buy Order</span>
+                        <span class="txn-date">08 Mar 2026 · 09:32 AM</span>
+                    </div>
+                    <h3 class="txn-title">
+                        Bought <span class="highlight-buy">100</span> shares of <span
+                            class="highlight-buy">RELIANCE</span>
+                    </h3>
+                    <p class="txn-desc">
+                        Bought at market price. Order executed at the opening bell with full margin available. This
+                        was a swing trade entry looking to capture the breakout above ₹2,500.
+                    </p>
+                    <div class="txn-stats">
+                        <div class="txn-stat">
+                            <p class="txn-stat-label">Price</p>
+                            <p class="txn-stat-value font-mono">₹2,500.00</p>
+                        </div>
+                        <div class="txn-stat">
+                            <p class="txn-stat-label">Total Cost</p>
+                            <p class="txn-stat-value font-mono">₹2,50,000</p>
+                        </div>
+                        <div class="txn-stat">
+                            <p class="txn-stat-label">Status</p>
+                            <p class="txn-stat-value up">Executed ✓</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transaction 2 — BUY -->
+            <div class="txn-card buy">
+                <div class="txn-glow"></div>
+                <div class="txn-content">
+                    <div class="txn-meta">
+                        <span class="txn-icon"><i data-lucide="arrow-down-left"></i></span>
+                        <span class="txn-type">Buy Order</span>
+                        <span class="txn-date">07 Mar 2026 · 02:15 PM</span>
+                    </div>
+                    <h3 class="txn-title">
+                        Bought <span class="highlight-buy">10</span> shares of <span
+                            class="highlight-buy">HDFC</span>
+                    </h3>
+                    <p class="txn-desc">
+                        Positional trade entry. Banking sector showing strong momentum after RBI policy
+                        announcement. Expecting a gradual move towards ₹1,700 over the next 2 weeks.
+                    </p>
+                    <div class="txn-stats">
+                        <div class="txn-stat">
+                            <p class="txn-stat-label">Price</p>
+                            <p class="txn-stat-value font-mono">₹1,620.00</p>
+                        </div>
+                        <div class="txn-stat">
+                            <p class="txn-stat-label">Total Cost</p>
+                            <p class="txn-stat-value font-mono">₹16,200</p>
+                        </div>
+                        <div class="txn-stat">
+                            <p class="txn-stat-label">Status</p>
+                            <p class="txn-stat-value up">Executed ✓</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transaction 3 — SELL (Loss) -->
+            <div class="txn-card sell">
+                <div class="txn-glow"></div>
+                <div class="txn-content">
+                    <div class="txn-meta">
+                        <span class="txn-icon"><i data-lucide="arrow-up-right"></i></span>
+                        <span class="txn-type">Sell Order</span>
+                        <span class="txn-date">06 Mar 2026 · 03:28 PM</span>
+                    </div>
+                    <h3 class="txn-title">
+                        Sold <span class="highlight-sell">50</span> shares of <span
+                            class="highlight-sell">ITC</span>
+                    </h3>
+                    <p class="txn-desc">
+                        Stop-loss triggered. The trade moved against the initial thesis after weak quarterly
+                        results. Exited at a controlled loss to preserve capital for better setups.
+                    </p>
+                    <div class="txn-stats">
+                        <div class="txn-stat">
+                            <p class="txn-stat-label">Price</p>
+                            <p class="txn-stat-value font-mono">₹408.30</p>
+                        </div>
+                        <div class="txn-stat">
+                            <p class="txn-stat-label">Total Value</p>
+                            <p class="txn-stat-value font-mono">₹20,415</p>
+                        </div>
+                        <div class="txn-stat">
+                            <p class="txn-stat-label">P/L</p>
+                            <p class="txn-stat-value down font-mono">-₹340.00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transaction 4 — BUY -->
+            <div class="txn-card buy">
+                <div class="txn-glow"></div>
+                <div class="txn-content">
+                    <div class="txn-meta">
+                        <span class="txn-icon"><i data-lucide="arrow-down-left"></i></span>
+                        <span class="txn-type">Buy Order</span>
+                        <span class="txn-date">05 Mar 2026 · 10:05 AM</span>
+                    </div>
+                    <h3 class="txn-title">
+                        Bought <span class="highlight-buy">5</span> shares of <span class="highlight-buy">TCS</span>
+                    </h3>
+                    <p class="txn-desc">
+                        Long-term portfolio addition. TCS is a core IT holding with strong fundamentals. Dollar
+                        revenue growth expected to accelerate next quarter.
+                    </p>
+                    <div class="txn-stats">
+                        <div class="txn-stat">
+                            <p class="txn-stat-label">Price</p>
+                            <p class="txn-stat-value font-mono">₹4,200.00</p>
+                        </div>
+                        <div class="txn-stat">
+                            <p class="txn-stat-label">Total Cost</p>
+                            <p class="txn-stat-value font-mono">₹21,000</p>
+                        </div>
+                        <div class="txn-stat">
+                            <p class="txn-stat-label">Status</p>
+                            <p class="txn-stat-value up">Executed ✓</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transaction 5 — SELL (Profit) -->
+            <div class="txn-card buy">
+                <div class="txn-glow"></div>
+                <div class="txn-content">
+                    <div class="txn-meta">
+                        <span class="txn-icon"><i data-lucide="arrow-up-right"></i></span>
+                        <span class="txn-type">Sell Order — Profit</span>
+                        <span class="txn-date">04 Mar 2026 · 01:45 PM</span>
+                    </div>
+                    <h3 class="txn-title">
+                        Sold <span class="highlight-buy">20</span> shares of <span
+                            class="highlight-buy">WIPRO</span>
+                    </h3>
+                    <p class="txn-desc">
+                        Target hit! Took partial profits after Wipro rallied 8% on strong deal wins. Booked gains
+                        and rotated capital into RELIANCE for the next leg up.
+                    </p>
+                    <div class="txn-stats">
+                        <div class="txn-stat">
+                            <p class="txn-stat-label">Price</p>
+                            <p class="txn-stat-value font-mono">₹478.50</p>
+                        </div>
+                        <div class="txn-stat">
+                            <p class="txn-stat-label">Total Value</p>
+                            <p class="txn-stat-value font-mono">₹9,570</p>
+                        </div>
+                        <div class="txn-stat">
+                            <p class="txn-stat-label">P/L</p>
+                            <p class="txn-stat-value up font-mono">+₹1,170.00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transaction 6 — BUY -->
+            <div class="txn-card buy">
+                <div class="txn-glow"></div>
+                <div class="txn-content">
+                    <div class="txn-meta">
+                        <span class="txn-icon"><i data-lucide="arrow-down-left"></i></span>
+                        <span class="txn-type">Buy Order</span>
+                        <span class="txn-date">03 Mar 2026 · 11:20 AM</span>
+                    </div>
+                    <h3 class="txn-title">
+                        Bought <span class="highlight-buy">8</span> shares of <span
+                            class="highlight-buy">RELIANCE</span>
+                    </h3>
+                    <p class="txn-desc">
+                        First trade on the platform! Started with a high-conviction blue-chip pick. Reliance has
+                        been consolidating near support, making it a low-risk entry point.
+                    </p>
+                    <div class="txn-stats">
+                        <div class="txn-stat">
+                            <p class="txn-stat-label">Price</p>
+                            <p class="txn-stat-value font-mono">₹2,918.00</p>
+                        </div>
+                        <div class="txn-stat">
+                            <p class="txn-stat-label">Total Cost</p>
+                            <p class="txn-stat-value font-mono">₹23,344</p>
+                        </div>
+                        <div class="txn-stat">
+                            <p class="txn-stat-label">Status</p>
+                            <p class="txn-stat-value up">Executed ✓</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
 <script src="./js/lucide.js"></script>
 <script src="style.js"></script>
 </body>
