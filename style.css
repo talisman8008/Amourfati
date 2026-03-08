@@ -16,8 +16,84 @@ body{
 }
 /*dark mode*/
 html.dark body{
+    background: #020617;
+    color: #e2e8f0;
+}
+html:not(.dark) body {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+/*nav bar*/
+.container{
+    max-width:1440px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.navbar{
+    position: sticky;
+    top:0;
+    z-index: 50;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid;
+    transition:backgroung-color 0.3s, color 0.3s;
+}
+html.dark.navbar{
+    background-color: rgba(2,6,23,0.8);
+    border-color: #1e293b;
+}
 
+html:not(.dark) .navbar{
+    background: rgba(255, 255, 255, 0.85);
+    border-color: #e2e8f0;
+}
+.navbar-inner{
+    height:64px;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+/*logo*/
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: inherit;
+}
+.logo-icon-wrap{
+    width:36px;
+    height:36px;
+    border-radius: 12px;
+    background:linear-gradient(135deg,#10b981,#059669);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.2);
+    transition: box-shadow 0.3s;
+}
+.logo-link:hover .logo-icon-wrap {
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+}
 
+.logo-icon-wrap i {
+    color: #fff;
+}
+
+.logo-text {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+}
+
+.logo-text span {
+    color: #10b981;
+}
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 @keyframes ping {
     0% {
