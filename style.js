@@ -104,12 +104,36 @@ function tickMarketPrices() {
     renderSummary();
     renderHoldings();
 }
+// Search Bar Logic
+let searchQuery = '';
+const searchInput = document.querySelector('.search-wrap input');
 
+if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value.toLowerCase();
+        renderWatchlist(); // Input type hote hi watchlist re-render hogi
+    });
+}
 function renderWatchlist() {
     const watchlist = document.querySelector('.watchlist');
     if (!watchlist) return;
 
-    watchlist.innerHTML = state.market.map(stock => {
+    // Filter stocks based on search query (by ticker or company name)
+    const filteredMarket = state.market.filter(stock =>
+        stock.ticker.toLowerCase().includes(searchQuery) ||
+        stock.name.toLowerCase().includes(searchQuery)
+    );
+
+    // Agar koi stock nahi mila
+    if (filteredMarket.length === 0) {
+        watchlist.innerHTML = `<div style="padding: 20px; text-align: center; color: #64748b; font-size: 12px;">No matching stocks found.</div>`;
+        return;
+    }
+
+
+
+
+    watchlist.innerHTML = filteredMarket.map(stock => {
         const isUp = stock.change >= 0;
         return `
             <div class="wl-item ${stock.ticker === activeSymbol ? 'active' : ''}" onclick="setActiveStock('${stock.ticker}')">
@@ -125,7 +149,6 @@ function renderWatchlist() {
         `;
     }).join('');
 }
-
 window.setActiveStock = (symbol) => {
     activeSymbol = symbol;
     renderTradeDesk();
