@@ -1,30 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VirtualTrade — Premium Stock Trading Dashboard</title>
-    <meta name="description"
-          content="A premium virtual stock trading dashboard for Indian markets. Practice trading with real-time prices in Indian Rupees.">
+    <title>VirtualTrade | Home</title>
+    <meta name="description" content="A premium virtual stock trading dashboard for Indian markets. Practice trading with real-time prices in Indian Rupees.">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
-            rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- ════════════════════════════════════════════════
-     NAVBAR
-     ════════════════════════════════════════════════ -->
 <header class="navbar">
     <div class="container navbar-inner">
-
-        <!-- Logo -->
         <a href="#" class="logo-link">
             <div class="logo-icon-wrap">
                 <i data-lucide="trending-up" style="width:20px;height:20px;"></i>
@@ -33,16 +24,11 @@
                 Virtual<span>Trade</span>
             </h1>
         </a>
-
-        <!-- Right Actions -->
         <div class="nav-actions">
-            <!-- Reset Portfolio -->
             <button id="btn-reset" class="btn-reset">
                 <i data-lucide="rotate-ccw" style="width:14px;height:14px;"></i>
                 Reset
             </button>
-
-            <!-- Volatility Slider -->
             <div class="volatility-wrap">
                 <div class="vol-header">
                     <i data-lucide="gauge"></i>
@@ -55,14 +41,10 @@
                     <span>High</span>
                 </div>
             </div>
-
-            <!-- Theme Toggle -->
             <button id="btn-theme" class="btn-theme" aria-label="Toggle theme">
                 <i data-lucide="moon" class="icon-moon" style="width:20px;height:20px;"></i>
                 <i data-lucide="sun" class="icon-sun" style="width:20px;height:20px;"></i>
             </button>
-
-            <!-- User Avatar -->
             <div class="avatar">
                 <span>OD</span>
             </div>
@@ -71,13 +53,7 @@
 </header>
 
 <main class="container main-content">
-
-    <!-- ════════════════════════════════════════════════
-         SUMMARY ROW — 4 Metric Cards
-         ════════════════════════════════════════════════ -->
     <section class="summary-grid">
-
-        <!-- Cash Balance -->
         <div class="card">
             <p class="card-label">
                 <i data-lucide="wallet"></i>
@@ -87,30 +63,24 @@
                 ₹1,00,000<span class="decimal">.00</span>
             </h3>
         </div>
-
-        <!-- Portfolio Value -->
         <div class="card">
             <p class="card-label">
                 <i data-lucide="briefcase"></i>
                 Portfolio Value
             </p>
             <h3 class="card-value">
-                ₹62,700<span class="decimal">.00</span>
+                ₹0<span class="decimal">.00</span>
             </h3>
         </div>
-
-        <!-- Net Worth -->
         <div class="card">
             <p class="card-label">
                 <i data-lucide="bar-chart-3"></i>
                 Net Worth
             </p>
             <h3 class="card-value">
-                ₹1,62,700<span class="decimal">.00</span>
+                ₹1,00,000<span class="decimal">.00</span>
             </h3>
         </div>
-
-        <!-- Overall P/L -->
         <div class="card card-pl">
             <div class="glow"></div>
             <p class="card-label" style="position:relative;z-index:10;">
@@ -119,19 +89,14 @@
             </p>
             <div class="pl-row">
                 <h3 class="pl-value">
-                    +₹2,500<span class="decimal">.00</span>
+                    ₹0<span class="decimal">.00</span>
                 </h3>
-                <span class="pl-badge">+2.50%</span>
+                <span class="pl-badge">0.00%</span>
             </div>
         </div>
     </section>
 
-    <!-- ════════════════════════════════════════════════
-         MAIN TRADING FLOOR
-         ════════════════════════════════════════════════ -->
     <section class="trading-grid">
-
-        <!-- ─── LEFT: LIVE MARKET ─── -->
         <div>
             <div class="section-header">
                 <h2 class="section-title">Live Market</h2>
@@ -140,134 +105,36 @@
                         <span class="dot"></span>
                     </span>
             </div>
-
             <div class="panel panel-fixed-height">
-                <!-- Search + Sort -->
                 <div class="search-sort">
                     <div class="search-wrap">
                         <i data-lucide="search"></i>
                         <input type="text" placeholder="Search stocks..." class="input-field">
                     </div>
-                    <div class="select-wrap">
-                        <select class="select-field">
-                            <option>Sort: Default</option>
-                            <option>Price: High → Low</option>
-                            <option>Price: Low → High</option>
-                            <option>Change: Top Gainers</option>
-                            <option>Change: Top Losers</option>
-                        </select>
-                        <i data-lucide="chevron-down"></i>
-                    </div>
                 </div>
-
-                <!-- Watchlist -->
-                <div class="watchlist">
-                    <!-- Active Stock -->
-                    <div class="wl-item active">
-                        <div>
-                            <h4 class="wl-name">RELIANCE</h4>
-                            <p class="wl-company">Reliance Industries</p>
-                        </div>
-                        <div>
-                            <p class="wl-price up font-mono">₹2,950.45</p>
-                            <p class="wl-change up">▲ +1.25%</p>
-                        </div>
-                    </div>
-                    <!-- TCS -->
-                    <div class="wl-item">
-                        <div>
-                            <h4 class="wl-name">TCS</h4>
-                            <p class="wl-company">Tata Consultancy</p>
-                        </div>
-                        <div>
-                            <p class="wl-price down font-mono">₹4,120.80</p>
-                            <p class="wl-change down">▼ -0.45%</p>
-                        </div>
-                    </div>
-                    <!-- HDFC -->
-                    <div class="wl-item">
-                        <div>
-                            <h4 class="wl-name">HDFC</h4>
-                            <p class="wl-company">HDFC Bank Ltd</p>
-                        </div>
-                        <div>
-                            <p class="wl-price up font-mono">₹1,645.20</p>
-                            <p class="wl-change up">▲ +0.80%</p>
-                        </div>
-                    </div>
-                    <!-- INFY -->
-                    <div class="wl-item">
-                        <div>
-                            <h4 class="wl-name">INFY</h4>
-                            <p class="wl-company">Infosys Ltd</p>
-                        </div>
-                        <div>
-                            <p class="wl-price up font-mono">₹1,480.65</p>
-                            <p class="wl-change up">▲ +0.15%</p>
-                        </div>
-                    </div>
-                    <!-- ITC -->
-                    <div class="wl-item">
-                        <div>
-                            <h4 class="wl-name">ITC</h4>
-                            <p class="wl-company">ITC Ltd</p>
-                        </div>
-                        <div>
-                            <p class="wl-price down font-mono">₹415.10</p>
-                            <p class="wl-change down">▼ -1.12%</p>
-                        </div>
-                    </div>
-                    <!-- WIPRO -->
-                    <div class="wl-item">
-                        <div>
-                            <h4 class="wl-name">WIPRO</h4>
-                            <p class="wl-company">Wipro Ltd</p>
-                        </div>
-                        <div>
-                            <p class="wl-price up font-mono">₹462.35</p>
-                            <p class="wl-change up">▲ +2.10%</p>
-                        </div>
-                    </div>
-                    <!-- SBIN -->
-                    <div class="wl-item">
-                        <div>
-                            <h4 class="wl-name">SBIN</h4>
-                            <p class="wl-company">State Bank of India</p>
-                        </div>
-                        <div>
-                            <p class="wl-price down font-mono">₹752.90</p>
-                            <p class="wl-change down">▼ -0.32%</p>
-                        </div>
-                    </div>
-                </div>
+                <div class="watchlist"></div>
             </div>
         </div>
 
-        <!-- ─── CENTER: TRADE DESK ─── -->
         <div>
             <div class="section-header">
                 <h2 class="section-title">Trade Desk</h2>
                 <span class="nse-tag">NSE</span>
             </div>
-
             <div class="panel trade-panel">
                 <div class="ambient"></div>
-
-                <!-- Stock Header -->
                 <div class="stock-header">
                     <div>
                         <div class="stock-symbol">
                             <h2>RELIANCE</h2>
                             <span class="stock-exchange">NSE</span>
                         </div>
-                        <p class="stock-company">Reliance Industries Ltd.</p>
+                        <p class="stock-company">Reliance Industries</p>
                     </div>
                     <button class="btn-star">
                         <i data-lucide="star" style="width:20px;height:20px;"></i>
                     </button>
                 </div>
-
-                <!-- Big Price -->
                 <div class="big-price-section">
                     <div class="big-price-row">
                         <span class="big-price">₹2,950<span class="paise">.45</span></span>
@@ -276,46 +143,43 @@
                         </div>
                     </div>
                     <div class="price-meta">
-                        <span class="price-change">+₹36.50 (1.25%)</span>
-                        <span class="market-status">
+                            <span class="market-status">
                                 <i data-lucide="clock"></i> Market Open
                             </span>
                     </div>
                 </div>
 
-                <!-- Day Stats -->
                 <div class="day-stats">
                     <div class="stat-cell">
                         <span class="stat-label">Open</span>
-                        <span class="stat-value font-mono">₹2,910.00</span>
+                        <span class="stat-value font-mono" id="stat-open">₹0.00</span>
                     </div>
                     <div class="stat-cell">
                         <span class="stat-label">Prev Close</span>
-                        <span class="stat-value font-mono">₹2,913.95</span>
+                        <span class="stat-value font-mono" id="stat-prev">₹0.00</span>
                     </div>
                     <div class="stat-cell">
                         <span class="stat-label">Day High</span>
-                        <span class="stat-value high font-mono">₹2,965.00</span>
+                        <span class="stat-value high font-mono" id="stat-high">₹0.00</span>
                     </div>
                     <div class="stat-cell">
                         <span class="stat-label">Day Low</span>
-                        <span class="stat-value low font-mono">₹2,905.10</span>
+                        <span class="stat-value low font-mono" id="stat-low">₹0.00</span>
                     </div>
                 </div>
 
-                <!-- Order Panel -->
                 <div class="order-panel">
                     <div class="qty-header">
                         <label class="qty-label">Quantity</label>
                         <span class="est-cost">
-                                Est. Cost: <strong>₹29,504.50</strong>
+                                Est. Cost: <strong>₹0.00</strong>
                             </span>
                     </div>
                     <div class="qty-input-wrap">
                         <button class="qty-btn">
                             <i data-lucide="minus" style="width:20px;height:20px;"></i>
                         </button>
-                        <input type="number" value="10" min="1" class="qty-input">
+                        <input type="number" value="1" min="1" class="qty-input">
                         <button class="qty-btn">
                             <i data-lucide="plus" style="width:20px;height:20px;"></i>
                         </button>
@@ -334,15 +198,11 @@
             </div>
         </div>
 
-        <!-- ─── RIGHT: MY HOLDINGS ─── -->
         <div>
             <div class="section-header">
                 <h2 class="section-title">My Holdings</h2>
-                <span class="section-title" style="font-size:10px;color:#475569;">3 Stocks</span>
             </div>
-
             <div class="panel panel-fixed-height">
-                <!-- Table Header -->
                 <div class="holdings-header">
                     <div>Stock</div>
                     <div>Qty</div>
@@ -350,114 +210,28 @@
                     <div>Value</div>
                     <div>P/L</div>
                 </div>
-
-                <!-- Holdings List -->
-                <div class="holdings-list">
-                    <!-- HDFC — Profit -->
-                    <div class="holding-row">
-                        <div>
-                            <h4 class="h-stock">HDFC</h4>
-                            <p class="h-company">HDFC Bank</p>
-                        </div>
-                        <div>
-                            <p class="h-qty">10</p>
-                        </div>
-                        <div>
-                            <p class="h-avg">₹1,620.00</p>
-                        </div>
-                        <div>
-                            <p class="h-val font-mono" style="font-weight:700;">₹16,452</p>
-                        </div>
-                        <div>
-                            <p class="h-pl up">+₹252</p>
-                            <p class="h-pl-pct up">+1.55%</p>
-                        </div>
-                    </div>
-
-                    <!-- TCS — Loss -->
-                    <div class="holding-row">
-                        <div>
-                            <h4 class="h-stock">TCS</h4>
-                            <p class="h-company">Tata Consultancy</p>
-                        </div>
-                        <div>
-                            <p class="h-qty">5</p>
-                        </div>
-                        <div>
-                            <p class="h-avg">₹4,200.00</p>
-                        </div>
-                        <div>
-                            <p class="h-val font-mono" style="font-weight:700;">₹20,604</p>
-                        </div>
-                        <div>
-                            <p class="h-pl down">-₹396</p>
-                            <p class="h-pl-pct down">-1.88%</p>
-                        </div>
-                    </div>
-
-                    <!-- RELIANCE — Profit -->
-                    <div class="holding-row">
-                        <div>
-                            <h4 class="h-stock">RELIANCE</h4>
-                            <p class="h-company">Reliance Ind.</p>
-                        </div>
-                        <div>
-                            <p class="h-qty">8</p>
-                        </div>
-                        <div>
-                            <p class="h-avg">₹2,918.00</p>
-                        </div>
-                        <div>
-                            <p class="h-val font-mono" style="font-weight:700;">₹23,603</p>
-                        </div>
-                        <div>
-                            <p class="h-pl up">+₹259</p>
-                            <p class="h-pl-pct up">+1.11%</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Footer Summary -->
-                <div class="holdings-footer">
-                    <div>
-                        <p class="hf-label">Total Invested</p>
-                        <p class="hf-value">₹60,200.00</p>
-                    </div>
-                    <div>
-                        <p class="hf-label">Current Value</p>
-                        <p class="hf-value up">₹60,659.00</p>
-                    </div>
-                </div>
+                <div class="holdings-list"></div>
             </div>
         </div>
-
     </section>
 </main>
-<!-- ════════════════════════════════════════════════════════════════════
-       SCROLLYTELLING: TRANSACTION HISTORY
-       ════════════════════════════════════════════════════════════════════ -->
+
 <div class="scrolly-divider"></div>
 
 <section class="container scrolly-section">
-    <!-- Section Header -->
     <div class="scrolly-header">
         <div class="scrolly-icon">
             <i data-lucide="scroll-text" style="width:20px;height:20px;"></i>
         </div>
         <div>
-            <h2 class="scrolly-title">Transaction History</h2>
-            <p class="scrolly-subtitle">Scroll through your past trades</p>
+            <h2 class="scrolly-title">Transaction History & Chart</h2>
+            <p class="scrolly-subtitle">Watch your net worth in real-time</p>
         </div>
     </div>
-
-    <!-- Scrollytelling Flex Container -->
     <div class="scrolly-flex">
-
-        <!-- LEFT SIDE: Sticky Chart -->
         <div class="scrolly-left">
             <div class="scrolly-sticky">
                 <div class="chart-panel">
-                    <!-- Chart Header -->
                     <div class="chart-header">
                         <div class="chart-header-left">
                             <i data-lucide="line-chart" style="width:20px;height:20px;"></i>
@@ -465,273 +239,25 @@
                         </div>
                         <div class="chart-period-btns">
                             <button class="chart-period-btn active">1M</button>
-                            <button class="chart-period-btn">3M</button>
-                            <button class="chart-period-btn">1Y</button>
-                            <button class="chart-period-btn">ALL</button>
                         </div>
                     </div>
-
-                    <!-- Chart Area -->
-                    <div class="chart-body" id="chart-container">
+                    <div class="chart-body" id="chart-container" style="position: relative; height: 300px; width: 100%; padding: 0 16px;">
                         <div class="chart-glow">
                             <div></div>
                         </div>
                         <div class="chart-gradient"></div>
-
-                        <!-- Placeholder -->
-                        <div class="chart-placeholder">
-                            <div class="chart-placeholder-icon">
-                                <i data-lucide="bar-chart-3" style="width:40px;height:40px;"></i>
-                            </div>
-                            <p>Chart.js Canvas</p>
-                            <p>
-                                Replace this div with a <code>&lt;canvas&gt;</code>
-                                element to render your portfolio performance chart.
-                            </p>
-                        </div>
-
-                        <!-- Grid Lines -->
-                        <div class="chart-grid">
-                            <div class="chart-grid-h"></div>
-                            <div class="chart-grid-h"></div>
-                            <div class="chart-grid-h"></div>
-                            <div class="chart-grid-v"></div>
-                            <div class="chart-grid-v"></div>
-                            <div class="chart-grid-v"></div>
-                        </div>
-                    </div>
-
-                    <!-- Chart Footer Stats -->
-                    <div class="chart-footer">
-                        <div>
-                            <p class="cf-label">Total Trades</p>
-                            <p class="cf-value font-mono">6</p>
-                        </div>
-                        <div>
-                            <p class="cf-label">Win Rate</p>
-                            <p class="cf-value up font-mono">66.7%</p>
-                        </div>
-                        <div>
-                            <p class="cf-label">Net Return</p>
-                            <p class="cf-value up font-mono">+₹2,500</p>
-                        </div>
+                        <canvas id="portfolioChart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- RIGHT SIDE: Transaction Cards -->
-        <div class="scrolly-right">
-
-            <!-- Transaction 1 — BUY -->
-            <div class="txn-card buy">
-                <div class="txn-glow"></div>
-                <div class="txn-content">
-                    <div class="txn-meta">
-                        <span class="txn-icon"><i data-lucide="arrow-down-left"></i></span>
-                        <span class="txn-type">Buy Order</span>
-                        <span class="txn-date">08 Mar 2026 · 09:32 AM</span>
-                    </div>
-                    <h3 class="txn-title">
-                        Bought <span class="highlight-buy">100</span> shares of <span
-                            class="highlight-buy">RELIANCE</span>
-                    </h3>
-                    <p class="txn-desc">
-                        Bought at market price. Order executed at the opening bell with full margin available. This
-                        was a swing trade entry looking to capture the breakout above ₹2,500.
-                    </p>
-                    <div class="txn-stats">
-                        <div class="txn-stat">
-                            <p class="txn-stat-label">Price</p>
-                            <p class="txn-stat-value font-mono">₹2,500.00</p>
-                        </div>
-                        <div class="txn-stat">
-                            <p class="txn-stat-label">Total Cost</p>
-                            <p class="txn-stat-value font-mono">₹2,50,000</p>
-                        </div>
-                        <div class="txn-stat">
-                            <p class="txn-stat-label">Status</p>
-                            <p class="txn-stat-value up">Executed ✓</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Transaction 2 — BUY -->
-            <div class="txn-card buy">
-                <div class="txn-glow"></div>
-                <div class="txn-content">
-                    <div class="txn-meta">
-                        <span class="txn-icon"><i data-lucide="arrow-down-left"></i></span>
-                        <span class="txn-type">Buy Order</span>
-                        <span class="txn-date">07 Mar 2026 · 02:15 PM</span>
-                    </div>
-                    <h3 class="txn-title">
-                        Bought <span class="highlight-buy">10</span> shares of <span
-                            class="highlight-buy">HDFC</span>
-                    </h3>
-                    <p class="txn-desc">
-                        Positional trade entry. Banking sector showing strong momentum after RBI policy
-                        announcement. Expecting a gradual move towards ₹1,700 over the next 2 weeks.
-                    </p>
-                    <div class="txn-stats">
-                        <div class="txn-stat">
-                            <p class="txn-stat-label">Price</p>
-                            <p class="txn-stat-value font-mono">₹1,620.00</p>
-                        </div>
-                        <div class="txn-stat">
-                            <p class="txn-stat-label">Total Cost</p>
-                            <p class="txn-stat-value font-mono">₹16,200</p>
-                        </div>
-                        <div class="txn-stat">
-                            <p class="txn-stat-label">Status</p>
-                            <p class="txn-stat-value up">Executed ✓</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Transaction 3 — SELL (Loss) -->
-            <div class="txn-card sell">
-                <div class="txn-glow"></div>
-                <div class="txn-content">
-                    <div class="txn-meta">
-                        <span class="txn-icon"><i data-lucide="arrow-up-right"></i></span>
-                        <span class="txn-type">Sell Order</span>
-                        <span class="txn-date">06 Mar 2026 · 03:28 PM</span>
-                    </div>
-                    <h3 class="txn-title">
-                        Sold <span class="highlight-sell">50</span> shares of <span
-                            class="highlight-sell">ITC</span>
-                    </h3>
-                    <p class="txn-desc">
-                        Stop-loss triggered. The trade moved against the initial thesis after weak quarterly
-                        results. Exited at a controlled loss to preserve capital for better setups.
-                    </p>
-                    <div class="txn-stats">
-                        <div class="txn-stat">
-                            <p class="txn-stat-label">Price</p>
-                            <p class="txn-stat-value font-mono">₹408.30</p>
-                        </div>
-                        <div class="txn-stat">
-                            <p class="txn-stat-label">Total Value</p>
-                            <p class="txn-stat-value font-mono">₹20,415</p>
-                        </div>
-                        <div class="txn-stat">
-                            <p class="txn-stat-label">P/L</p>
-                            <p class="txn-stat-value down font-mono">-₹340.00</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Transaction 4 — BUY -->
-            <div class="txn-card buy">
-                <div class="txn-glow"></div>
-                <div class="txn-content">
-                    <div class="txn-meta">
-                        <span class="txn-icon"><i data-lucide="arrow-down-left"></i></span>
-                        <span class="txn-type">Buy Order</span>
-                        <span class="txn-date">05 Mar 2026 · 10:05 AM</span>
-                    </div>
-                    <h3 class="txn-title">
-                        Bought <span class="highlight-buy">5</span> shares of <span class="highlight-buy">TCS</span>
-                    </h3>
-                    <p class="txn-desc">
-                        Long-term portfolio addition. TCS is a core IT holding with strong fundamentals. Dollar
-                        revenue growth expected to accelerate next quarter.
-                    </p>
-                    <div class="txn-stats">
-                        <div class="txn-stat">
-                            <p class="txn-stat-label">Price</p>
-                            <p class="txn-stat-value font-mono">₹4,200.00</p>
-                        </div>
-                        <div class="txn-stat">
-                            <p class="txn-stat-label">Total Cost</p>
-                            <p class="txn-stat-value font-mono">₹21,000</p>
-                        </div>
-                        <div class="txn-stat">
-                            <p class="txn-stat-label">Status</p>
-                            <p class="txn-stat-value up">Executed ✓</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Transaction 5 — SELL (Profit) -->
-            <div class="txn-card buy">
-                <div class="txn-glow"></div>
-                <div class="txn-content">
-                    <div class="txn-meta">
-                        <span class="txn-icon"><i data-lucide="arrow-up-right"></i></span>
-                        <span class="txn-type">Sell Order — Profit</span>
-                        <span class="txn-date">04 Mar 2026 · 01:45 PM</span>
-                    </div>
-                    <h3 class="txn-title">
-                        Sold <span class="highlight-buy">20</span> shares of <span
-                            class="highlight-buy">WIPRO</span>
-                    </h3>
-                    <p class="txn-desc">
-                        Target hit! Took partial profits after Wipro rallied 8% on strong deal wins. Booked gains
-                        and rotated capital into RELIANCE for the next leg up.
-                    </p>
-                    <div class="txn-stats">
-                        <div class="txn-stat">
-                            <p class="txn-stat-label">Price</p>
-                            <p class="txn-stat-value font-mono">₹478.50</p>
-                        </div>
-                        <div class="txn-stat">
-                            <p class="txn-stat-label">Total Value</p>
-                            <p class="txn-stat-value font-mono">₹9,570</p>
-                        </div>
-                        <div class="txn-stat">
-                            <p class="txn-stat-label">P/L</p>
-                            <p class="txn-stat-value up font-mono">+₹1,170.00</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Transaction 6 — BUY -->
-            <div class="txn-card buy">
-                <div class="txn-glow"></div>
-                <div class="txn-content">
-                    <div class="txn-meta">
-                        <span class="txn-icon"><i data-lucide="arrow-down-left"></i></span>
-                        <span class="txn-type">Buy Order</span>
-                        <span class="txn-date">03 Mar 2026 · 11:20 AM</span>
-                    </div>
-                    <h3 class="txn-title">
-                        Bought <span class="highlight-buy">8</span> shares of <span
-                            class="highlight-buy">RELIANCE</span>
-                    </h3>
-                    <p class="txn-desc">
-                        First trade on the platform! Started with a high-conviction blue-chip pick. Reliance has
-                        been consolidating near support, making it a low-risk entry point.
-                    </p>
-                    <div class="txn-stats">
-                        <div class="txn-stat">
-                            <p class="txn-stat-label">Price</p>
-                            <p class="txn-stat-value font-mono">₹2,918.00</p>
-                        </div>
-                        <div class="txn-stat">
-                            <p class="txn-stat-label">Total Cost</p>
-                            <p class="txn-stat-value font-mono">₹23,344</p>
-                        </div>
-                        <div class="txn-stat">
-                            <p class="txn-stat-label">Status</p>
-                            <p class="txn-stat-value up">Executed ✓</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+        <div class="scrolly-right" id="transaction-history">
         </div>
+
     </div>
 </section>
-<!-- ════════════════════════════════════════════════
-         FLOATING TRADE NOTIFICATION (Toast)
-         ════════════════════════════════════════════════ -->
+
 <div id="trade-toast" class="toast-wrap">
     <div class="toast-inner">
         <div class="toast-icon-wrap">
@@ -739,7 +265,7 @@
         </div>
         <div class="toast-body">
             <h4 id="toast-title" class="toast-title">Trade Executed</h4>
-            <p id="toast-subtitle" class="toast-subtitle">Bought 10 RELIANCE at ₹2,950.00</p>
+            <p id="toast-subtitle" class="toast-subtitle">...</p>
         </div>
         <button onclick="hideToast()" class="toast-close">
             <i data-lucide="x"></i>
@@ -747,8 +273,6 @@
     </div>
 </div>
 
-<script src="./js/lucide.js"></script>
 <script src="style.js"></script>
 </body>
 </html>
-
