@@ -107,6 +107,62 @@ html:not(.dark) .navbar{
         opacity: 0;
     }
 }
+/*===============================*/
+/*SLIDERRR*/
+/*===============================*/
+input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 9999px;
+    outline: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+html.dark input[type=range] {
+    background: #1e293b;
+}
+
+html:not(.dark) input[type=range] {
+    background: #e2e8f0;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #10b981;
+    border: 2px solid #059669;
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.35);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+input[type=range]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 14px rgba(16, 185, 129, 0.5);
+}
+
+input[type=range]::-webkit-slider-thumb:active {
+    transform: scale(0.95);
+}
+
+input[type=range]::-moz-range-thumb {
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #10b981;
+    border: 2px solid #059669;
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.35);
+    cursor: pointer;
+}
+
+
+
+/*LIVE INDICATOR DOT */
 .live-dot .ping {
     position: absolute;
     display: inline-flex;
@@ -126,6 +182,184 @@ html:not(.dark) .navbar{
     border-radius: 50%;
     background: #10b981;
 }
+/*=======================*/
+/*MAIN TRADING AREA*/
+/*=======================*/
+.main-content {
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+
+/*4 CARD */
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+@media(min-width:640px) {
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(min-width:1024px) {
+    .summary-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.card {
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 120px;
+    cursor: default;
+}
+
+html.dark .card {
+    background: #0f172a;
+    border-color: #1e293b;
+}
+
+html:not(.dark) .card {
+    background: #ffffff;
+    border-color: #e2e8f0;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.25);
+}
+
+.card-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+html.dark .card-label {
+    color: #64748b;
+}
+
+html:not(.dark) .card-label {
+    color: #94a3b8;
+}
+
+.card-label i {
+    width: 16px;
+    height: 16px;
+}
+
+.card-value {
+    font-size: 30px;
+    font-weight: 800;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: -0.025em;
+    margin-top: 12px;
+}
+
+html.dark .card-value {
+    color: #ffffff;
+}
+
+html:not(.dark) .card-value {
+    color: #0f172a;
+}
+
+.card-value .decimal {
+    font-size: 16px;
+}
+
+html.dark .card-value .decimal {
+    color: #475569;
+}
+
+html:not(.dark) .card-value .decimal {
+    color: #cbd5e1;
+}
+
+/* P/L Card Special */
+.card-pl {
+    position: relative;
+    overflow: hidden;
+}
+
+.card-pl .glow {
+    position: absolute;
+    right: -32px;
+    top: -32px;
+    width: 112px;
+    height: 112px;
+    background: rgba(16, 185, 129, 0.1);
+    border-radius: 50%;
+    filter: blur(32px);
+    transition: background 0.5s;
+    pointer-events: none;
+}
+
+.card-pl:hover .glow {
+    background: rgba(16, 185, 129, 0.2);
+}
+
+.card-pl .card-label i {
+    color: #10b981;
+}
+
+.pl-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-top: 12px;
+    position: relative;
+    z-index: 10;
+}
+
+.pl-value {
+    font-size: 30px;
+    font-weight: 800;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: -0.025em;
+    color: #34d399;
+}
+
+.pl-value .decimal {
+    font-size: 16px;
+    color: rgba(52, 211, 153, 0.5);
+}
+
+.pl-badge {
+    font-size: 11px;
+    font-weight: 700;
+    color: #34d399;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    padding: 2px 8px;
+    border-radius: 9999px;
+    white-space: nowrap;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 .trading-grid {
     display: grid;
@@ -138,7 +372,6 @@ html:not(.dark) .navbar{
         grid-template-columns: 3fr 5fr 4fr;
     }
 }
-
 .section-header {
     display: flex;
     align-items: center;
