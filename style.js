@@ -2,7 +2,7 @@
 // Initializing vars and consts
 // =============================
 const storageKey = 'state_v1';
-const initBalance = 10000; // initial balance
+const initBalance = 100000; // Updated to 1 Lakh to match your HTML summary
 const priceTicker = 3500; // time in ms
 const tickVolatile = 0.018; // +-1.8%
 
@@ -10,102 +10,13 @@ const tickVolatile = 0.018; // +-1.8%
 // Mock data
 // =============================
 const defaultMarket = [
-    { id: 1,
-        ticker: 'AAPL',
-        name: 'Apple Inc.',
-        currentPrice: 189.30,
-        change: 0
-    },
-    { id: 2,
-        ticker: 'MSFT',
-        name: 'Microsoft Corp.',
-        currentPrice: 415.50,
-        change: 0
-    },
-    { id: 3,
-        ticker: 'GOOGL',
-        name: 'Alphabet Inc.',
-        currentPrice: 165.80,
-        change: 0
-    },
-    { id: 4,
-        ticker: 'AMZN',
-        name: 'Amazon.com Inc.',
-        currentPrice: 202.50,
-        change: 0
-    },
-    { id: 5,
-        ticker: 'NVDA',
-        name: 'NVIDIA Corp.',
-        currentPrice: 875.20,
-        change: 0
-    },
-    { id: 6,
-        ticker: 'TSLA',
-        name: 'Tesla Inc.',
-        currentPrice: 210.10,
-        change: 0
-    },
-    { id: 7,
-        ticker: 'META',
-        name: 'Meta Platforms Inc.',
-        currentPrice: 502.80,
-        change: 0
-    },
-    { id: 8,
-        ticker: 'BRK',
-        name: 'Berkshire Hathaway',
-        currentPrice: 398.60,
-        change: 0
-    },
-    { id: 9,
-        ticker: 'JPM',
-        name: 'JPMorgan Chase & Co.',
-        currentPrice: 198.40,
-        change: 0
-    },
-    { id: 10,
-        ticker: 'V',
-        name: 'Visa Inc.',
-        currentPrice: 274.90,
-        change: 0
-    },
-    { id: 11,
-        ticker: 'JNJ',
-        name: 'Johnson & Johnson',
-        currentPrice: 147.60,
-        change: 0
-    },
-    { id: 12,
-        ticker: 'WMT',
-        name: 'Walmart Inc.',
-        currentPrice: 68.20,
-        change: 0
-    },
-    { id: 13,
-        ticker: 'PG',
-        name: 'Procter & Gamble Co.',
-        currentPrice: 163.50,
-        change: 0
-    },
-    { id: 14,
-        ticker: 'UNH',
-        name: 'UnitedHealth Group',
-        currentPrice: 529.40,
-        change: 0
-    },
-    { id: 15,
-        ticker: 'HD',
-        name: 'Home Depot Inc.',
-        currentPrice: 359.80,
-        change: 0
-    },
-    { id: 16,
-        ticker: 'DIS',
-        name: 'Walt Disney Co.',
-        currentPrice: 112.70,
-        change: 0
-    },
+    { id: 1, ticker: 'RELIANCE', name: 'Reliance Industries', currentPrice: 2950.45, change: 0 },
+    { id: 2, ticker: 'TCS', name: 'Tata Consultancy', currentPrice: 4120.80, change: 0 },
+    { id: 3, ticker: 'HDFC', name: 'HDFC Bank Ltd', currentPrice: 1645.20, change: 0 },
+    { id: 4, ticker: 'INFY', name: 'Infosys Ltd', currentPrice: 1480.65, change: 0 },
+    { id: 5, ticker: 'ITC', name: 'ITC Ltd', currentPrice: 415.10, change: 0 },
+    { id: 6, ticker: 'WIPRO', name: 'Wipro Ltd', currentPrice: 462.35, change: 0 },
+    { id: 7, ticker: 'SBIN', name: 'State Bank of India', currentPrice: 752.90, change: 0 }
 ];
 
 // =============================
@@ -113,12 +24,12 @@ const defaultMarket = [
 // =============================
 let state = {
     balance: initBalance,
-    market: [], // Fixed typo: mrkt -> market
+    market: [],
     portfolio: [],
-    history: [] // Added to track transactions for scrollytelling
+    history: []
 };
 
-let activeSymbol = 'AAPL'; // Default active stock
+let activeSymbol = 'RELIANCE'; // Default active stock
 
 function initFreshState() {
     state.balance = initBalance;
@@ -192,7 +103,6 @@ function initApp() {
 // Market Engine
 function tickMarketPrices() {
     const volMode = volatilitySlider ? parseInt(volatilitySlider.value) : 1;
-    // Base volatility from your constants, scaled by slider
     const currentVol = tickVolatile * (volMode * 0.5);
 
     state.market = state.market.map(stock => {
@@ -226,7 +136,7 @@ function renderWatchlist() {
                     <p class="wl-company">${stock.name}</p>
                 </div>
                 <div>
-                    <p class="wl-price ${isUp ? 'up' : 'down'} font-mono">$${stock.currentPrice.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
+                    <p class="wl-price ${isUp ? 'up' : 'down'} font-mono">₹${stock.currentPrice.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
                     <p class="wl-change ${isUp ? 'up' : 'down'}">${isUp ? '▲' : '▼'} ${stock.change.toFixed(2)}%</p>
                 </div>
             </div>
@@ -247,15 +157,15 @@ function renderTradeDesk() {
 
     document.querySelector('.stock-symbol h2').innerText = activeSymbol;
     document.querySelector('.stock-company').innerText = stock.name;
-    document.querySelector('.nse-tag').innerText = 'NASDAQ';
-    document.querySelector('.stock-exchange').innerText = 'NASDAQ';
+    document.querySelector('.nse-tag').innerText = 'NSE';
+    document.querySelector('.stock-exchange').innerText = 'NSE';
 
     const [whole, decimal] = stock.currentPrice.toFixed(2).split('.');
-    document.querySelector('.big-price').innerHTML = `$${parseInt(whole).toLocaleString('en-US')}<span class="paise">.${decimal}</span>`;
+    document.querySelector('.big-price').innerHTML = `₹${parseInt(whole).toLocaleString('en-IN')}<span class="paise">.${decimal}</span>`;
 
     const qty = parseInt(qtyInput.value) || 1;
-    const estCost = (qty * stock.currentPrice).toLocaleString('en-US', {minimumFractionDigits: 2});
-    document.querySelector('.est-cost strong').innerText = `$${estCost}`;
+    const estCost = (qty * stock.currentPrice).toLocaleString('en-IN', {minimumFractionDigits: 2});
+    document.querySelector('.est-cost strong').innerText = `₹${estCost}`;
 }
 
 // Render Top Panel (Summary)
@@ -274,14 +184,14 @@ function renderSummary() {
 
     const cards = document.querySelectorAll('.card-value');
     if(cards.length >= 3) {
-        cards[0].innerHTML = `$${state.balance.toLocaleString('en-US', {maximumFractionDigits: 0})}<span class="decimal">.${(state.balance % 1).toFixed(2).substring(2)}</span>`;
-        cards[1].innerHTML = `$${portfolioValue.toLocaleString('en-US', {maximumFractionDigits: 0})}<span class="decimal">.${(portfolioValue % 1).toFixed(2).substring(2)}</span>`;
-        cards[2].innerHTML = `$${netWorth.toLocaleString('en-US', {maximumFractionDigits: 0})}<span class="decimal">.${(netWorth % 1).toFixed(2).substring(2)}</span>`;
+        cards[0].innerHTML = `₹${state.balance.toLocaleString('en-IN', {maximumFractionDigits: 0})}<span class="decimal">.${(state.balance % 1).toFixed(2).substring(2)}</span>`;
+        cards[1].innerHTML = `₹${portfolioValue.toLocaleString('en-IN', {maximumFractionDigits: 0})}<span class="decimal">.${(portfolioValue % 1).toFixed(2).substring(2)}</span>`;
+        cards[2].innerHTML = `₹${netWorth.toLocaleString('en-IN', {maximumFractionDigits: 0})}<span class="decimal">.${(netWorth % 1).toFixed(2).substring(2)}</span>`;
     }
 
     const plValue = document.querySelector('.pl-value');
     if (plValue) {
-        plValue.innerHTML = `${totalPL >= 0 ? '+' : ''}$${Math.abs(totalPL).toLocaleString('en-US', {maximumFractionDigits: 0})}<span class="decimal">.${(Math.abs(totalPL) % 1).toFixed(2).substring(2)}</span>`;
+        plValue.innerHTML = `${totalPL >= 0 ? '+' : ''}₹${Math.abs(totalPL).toLocaleString('en-IN', {maximumFractionDigits: 0})}<span class="decimal">.${(Math.abs(totalPL) % 1).toFixed(2).substring(2)}</span>`;
         document.querySelector('.pl-badge').innerText = `${totalPL >= 0 ? '+' : ''}${plPct.toFixed(2)}%`;
 
         // Update color based on P/L
@@ -315,10 +225,10 @@ function renderHoldings() {
                     <p class="h-company">${stock.name.substring(0, 12)}...</p>
                 </div>
                 <div><p class="h-qty">${holding.qty}</p></div>
-                <div><p class="h-avg">$${holding.avgPrice.toFixed(2)}</p></div>
-                <div><p class="h-val font-mono" style="font-weight:700;">$${currentVal.toFixed(0)}</p></div>
+                <div><p class="h-avg">₹${holding.avgPrice.toFixed(2)}</p></div>
+                <div><p class="h-val font-mono" style="font-weight:700;">₹${currentVal.toFixed(0)}</p></div>
                 <div>
-                    <p class="h-pl ${isUp ? 'up' : 'down'}">${isUp ? '+' : ''}$${Math.abs(pl).toFixed(0)}</p>
+                    <p class="h-pl ${isUp ? 'up' : 'down'}">${isUp ? '+' : ''}₹${Math.abs(pl).toFixed(0)}</p>
                     <p class="h-pl-pct ${isUp ? 'up' : 'down'}">${isUp ? '+' : ''}${plPct.toFixed(2)}%</p>
                 </div>
             </div>
@@ -382,7 +292,7 @@ if (buyBtn) {
             }
 
             saveState();
-            showToast(`Bought ${qty} ${activeSymbol} at $${stock.currentPrice.toFixed(2)}`);
+            showToast(`Bought ${qty} ${activeSymbol} at ₹${stock.currentPrice.toFixed(2)}`);
             renderSummary();
             renderHoldings();
         } else {
@@ -390,7 +300,7 @@ if (buyBtn) {
         }
     });
 }
-//sell logic
+
 // Sell Logic
 if (sellBtn) {
     sellBtn.addEventListener('click', () => {
@@ -419,7 +329,7 @@ if (sellBtn) {
                 }
 
                 saveState();
-                showToast(`Sold ${qtyToSell} ${activeSymbol} at $${stock.currentPrice.toFixed(2)}`);
+                showToast(`Sold ${qtyToSell} ${activeSymbol} at ₹${stock.currentPrice.toFixed(2)}`);
                 renderSummary();
                 renderHoldings();
             } else {
