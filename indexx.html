@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VTrade | Home</title>
+    <meta name="description" content="A premium virtual stock trading dashboard for Indian markets.">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="splash-screen" class="splash-screen">
+    <div class="splash-content">
+        <div class="splash-logo">
+            <i data-lucide="trending-up" style="width:40px;height:40px;"></i>
+        </div>
+        <h1 class="splash-title">Virtual<span>Trade</span></h1>
+        <p class="splash-subtitle">Loading your workspace...</p>
+        <div class="loader"></div>
+    </div>
+</div>
+
+<header class="navbar">
+    <div class="container navbar-inner">
+        <a href="#" class="logo-link">
+            <div class="logo-icon-wrap">
+                <i data-lucide="trending-up" style="width:20px;height:20px;"></i>
+            </div>
+            <h1 class="logo-text text-invert">
+                V<span>Trade</span>
+            </h1>
+        </a>
+        <div class="nav-actions">
+            <div class="volatility-wrap desktop-only">
+                <div class="vol-header">
+                    <i data-lucide="gauge"></i>
+                    <span class="vol-label">Volatility</span>
+                    <input type="range" min="1" max="3" step="1" value="1" id="volatility-slider" class="vol-range">
+                </div>
+            </div>
+
+            <button id="btn-api-sync" class="btn-reset api-status" title="API Status: Connected">
+                <span class="live-dot"><span class="ping"></span><span class="dot"></span></span>
+                <span class="desktop-only">Live</span>
+            </button>
+
+            <button id="btn-reset" class="btn-reset">
+                <i data-lucide="rotate-ccw" style="width:14px;height:14px;"></i>
+                <span class="desktop-only">Reset</span>
+            </button>
+            <button id="btn-theme" class="btn-theme" aria-label="Toggle theme">
+                <i data-lucide="moon" class="icon-moon" style="width:20px;height:20px;"></i>
+                <i data-lucide="sun" class="icon-sun" style="width:20px;height:20px;"></i>
+            </button>
+            <div class="avatar desktop-only">
+                <span>OD</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="container main-content">
+    <section class="summary-grid">
+        <div class="card">
+            <p class="card-label"><i data-lucide="wallet"></i> Cash Balance</p>
+            <h3 class="card-value">₹1,00,000<span class="decimal">.00</span></h3>
+        </div>
+        <div class="card">
+            <p class="card-label"><i data-lucide="briefcase"></i> Portfolio Value</p>
+            <h3 class="card-value">₹0<span class="decimal">.00</span></h3>
+        </div>
+        <div class="card">
+            <p class="card-label"><i data-lucide="bar-chart-3"></i> Net Worth</p>
+            <h3 class="card-value">₹1,00,000<span class="decimal">.00</span></h3>
+        </div>
+        <div class="card card-pl">
+            <div class="glow"></div>
+            <p class="card-label" style="position:relative;z-index:10;"><i data-lucide="activity"></i> Overall P/L</p>
+            <div class="pl-row">
+                <h3 class="pl-value">₹0<span class="decimal">.00</span></h3>
+                <span class="pl-badge">0.00%</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="trading-grid">
+        <div class="grid-col">
+            <div class="section-header">
+                <h2 class="section-title">Live Market</h2>
+            </div>
+            <div class="panel panel-list">
+                <div class="search-sort">
+                    <div class="search-wrap">
+                        <i data-lucide="search"></i>
+                        <input type="text" placeholder="Search stocks..." class="input-field">
+                    </div>
+                </div>
+                <div class="watchlist" id="api-watchlist">
+                    <div style="padding: 20px; text-align: center; color: #64748b; font-size: 12px;">Fetching Market Data...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-col">
+            <div class="section-header">
+                <h2 class="section-title">Trade Desk</h2>
+                <span class="nse-tag">NSE</span>
+            </div>
+            <div class="panel trade-panel">
+                <div class="ambient"></div>
+                <div class="stock-header">
+                    <div>
+                        <div class="stock-symbol">
+                            <h2>RELIANCE</h2>
+                            <span class="stock-exchange">NSE</span>
+                        </div>
+                        <p class="stock-company">Reliance Industries</p>
+                    </div>
+                    <button class="btn-star"><i data-lucide="star" style="width:20px;height:20px;"></i></button>
+                </div>
+                <div class="big-price-section">
+                    <div class="big-price-row">
+                        <span class="big-price">₹2,950<span class="paise">.45</span></span>
+                        <div class="price-arrow"><i data-lucide="arrow-up-right" style="width:24px;height:24px;"></i></div>
+                    </div>
+                    <div class="price-meta">
+                        <span class="market-status"><i data-lucide="clock"></i> Market Open</span>
+                    </div>
+                </div>
+
+                <div class="day-stats">
+                    <div class="stat-cell">
+                        <span class="stat-label">Open</span>
+                        <span class="stat-value font-mono" id="stat-open">₹0.00</span>
+                    </div>
+                    <div class="stat-cell">
+                        <span class="stat-label">Prev Close</span>
+                        <span class="stat-value font-mono" id="stat-prev">₹0.00</span>
+                    </div>
+                    <div class="stat-cell">
+                        <span class="stat-label">Day High</span>
+                        <span class="stat-value high font-mono" id="stat-high">₹0.00</span>
+                    </div>
+                    <div class="stat-cell">
+                        <span class="stat-label">Day Low</span>
+                        <span class="stat-value low font-mono" id="stat-low">₹0.00</span>
+                    </div>
+                </div>
+
+                <div class="order-panel">
+                    <div class="qty-header">
+                        <label class="qty-label">Quantity</label>
+                        <span class="est-cost">Est. Cost: <strong>₹0.00</strong></span>
+                    </div>
+                    <div class="qty-input-wrap">
+                        <button class="qty-btn" id="btn-minus"><i data-lucide="minus" style="width:20px;height:20px;"></i></button>
+                        <input type="number" value="1" min="1" class="qty-input">
+                        <button class="qty-btn" id="btn-plus"><i data-lucide="plus" style="width:20px;height:20px;"></i></button>
+                    </div>
+                    <div class="order-buttons">
+                        <button class="btn-buy"><i data-lucide="trending-up" style="width:20px;height:20px;"></i> BUY</button>
+                        <button class="btn-sell"><i data-lucide="trending-down" style="width:20px;height:20px;"></i> SELL</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-col">
+            <div class="section-header">
+                <h2 class="section-title">My Holdings</h2>
+            </div>
+            <div class="panel panel-list">
+                <div class="holdings-header">
+                    <div>Stock</div>
+                    <div>Qty</div>
+                    <div>Avg</div>
+                    <div>Value</div>
+                    <div>P/L</div>
+                </div>
+                <div class="holdings-list"></div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div class="scrolly-divider"></div>
+
+<section class="container scrolly-section">
+    <div class="scrolly-header">
+        <div class="scrolly-icon"><i data-lucide="scroll-text" style="width:20px;height:20px;"></i></div>
+        <div>
+            <h2 class="scrolly-title">Transaction History & Chart</h2>
+            <p class="scrolly-subtitle">Watch your net worth in real-time</p>
+        </div>
+    </div>
+    <div class="scrolly-flex">
+        <div class="scrolly-left">
+            <div class="scrolly-sticky">
+                <div class="chart-panel">
+                    <div class="chart-header">
+                        <div class="chart-header-left">
+                            <i data-lucide="line-chart" style="width:20px;height:20px;"></i>
+                            <h3>Portfolio Performance</h3>
+                        </div>
+                        <div class="chart-period-btns">
+                            <button class="chart-period-btn active">1M</button>
+                        </div>
+                    </div>
+                    <div class="chart-body" id="chart-container">
+                        <div class="chart-glow"><div></div></div>
+
+                        <div class="chart-wrapper">
+                            <canvas id="portfolioChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scrolly-right" id="transaction-history"></div>
+    </div>
+</section>
+
+<div id="trade-toast" class="toast-wrap">
+    <div class="toast-inner">
+        <div class="toast-icon-wrap">
+            <i data-lucide="check-circle" id="toast-icon" style="width:20px;height:20px;"></i>
+        </div>
+        <div class="toast-body">
+            <h4 id="toast-title" class="toast-title">Trade Executed</h4>
+            <p id="toast-subtitle" class="toast-subtitle">...</p>
+        </div>
+        <button onclick="hideToast()" class="toast-close">
+            <i data-lucide="x"></i>
+        </button>
+    </div>
+</div>
+
+
+<div id="custom-alert" class="alert-overlay hidden">
+    <div class="alert-box">
+        <div class="alert-icon">
+            <i data-lucide="alert-triangle"></i>
+        </div>
+        <h3 class="alert-title">Transaction Failed</h3>
+        <p class="alert-msg">Message goes here.</p>
+        <button class="alert-btn" onclick="closeAlert()">Understood</button>
+    </div>
+</div>
+
+<script src="style.js"></script>
+</body>
+</html>
