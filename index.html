@@ -14,17 +14,51 @@
 <body>
 
 <header class="navbar">
-    <div class="container navbar-inner"></div>
-<!--    logo lagayaa-->
-    <a href="#" class="logo-link">
-        <div class="logo-icon-wrap">
-            <i data-lucide="trending-up" style="width:20px;height:20px;"></i>
-        </div>
-        <h1 class="logo-text text-invert">
-            virtual <span>trade</span>
-        </h1>
-    </a>
+    <div class="container navbar-inner">
+        <!-- Logo -->
+        <a href="#" class="logo-link">
+            <div class="logo-icon-wrap">
+                <i data-lucide="trending-up" style="width:20px;height:20px;"></i>
+            </div>
+            <h1 class="logo-text text-invert">
+                Virtual<span>Trade</span>
+            </h1>
+        </a>
 
+        <!-- Right Actions -->
+        <div class="nav-actions">
+            <!-- Reset Portfolio -->
+            <button id="btn-reset" class="btn-reset">
+                <i data-lucide="rotate-ccw" style="width:14px;height:14px;"></i>
+                Reset
+            </button>
+
+            <!-- Volatility Slider -->
+            <div class="volatility-wrap">
+                <div class="vol-header">
+                    <i data-lucide="gauge"></i>
+                    <span class="vol-label">Volatility</span>
+                    <input type="range" min="1" max="3" step="1" value="1" id="volatility-slider" class="vol-range">
+                </div>
+                <div class="vol-labels">
+                    <span>Low</span>
+                    <span>Med</span>
+                    <span>High</span>
+                </div>
+            </div>
+
+            <!-- Theme Toggle -->
+            <button id="btn-theme" class="btn-theme" aria-label="Toggle theme">
+                <i data-lucide="moon" class="icon-moon" style="width:20px;height:20px;"></i>
+                <i data-lucide="sun" class="icon-sun" style="width:20px;height:20px;"></i>
+            </button>
+
+            <!-- User Avatar -->
+            <div class="avatar">
+                <span>OD</span>
+            </div>
+        </div>
+    </div>
 </header>
 <!--MAIN TRADING -->
 
@@ -104,6 +138,6 @@
 <!--flowbite script-->
 
 <!--custom style-->
-<script src="style.js"></script></div>
+<script src="style.js"></script>
 </body>
 </html>
