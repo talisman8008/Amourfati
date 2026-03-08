@@ -1,8 +1,9 @@
-
+// =============================
+// Initializing vars and consts
+// =============================
 const storageKey = 'state_v1';
 const initBalance = 100000;
-const priceTicker = 3500;
-const tickVolatile = 0.018;
+let isFetchingAPI = false; // Protects from multiple rapid API calls
 
 const defaultMarket = [
     { id: 1, ticker: 'RELIANCE', name: 'Reliance Industries', currentPrice: 2950.45, change: 0 },
@@ -22,6 +23,7 @@ let state = {
 };
 
 let activeSymbol = 'RELIANCE';
+let searchQuery = '';
 
 function initFreshState() {
     state.balance = initBalance;
@@ -39,6 +41,12 @@ function loadState() {
             return;
         }
         const saved = JSON.parse(raw);
+
+        const hasIndianStocks = saved.market && saved.market.some(s => s.ticker === 'RELIANCE');
+        if (!hasIndianStocks) {
+            initFreshState();
+            return;
+        }
 
         const priceMap = {};
         (saved.market || []).forEach(s => {
@@ -63,6 +71,9 @@ function saveState() {
     localStorage.setItem(storageKey, JSON.stringify(state));
 }
 
+// =====================================
+// DOM & Init Engine
+// =====================================
 const btnTheme = document.getElementById('btn-theme');
 const btnReset = document.getElementById('btn-reset');
 const volatilitySlider = document.getElementById('volatility-slider');
@@ -70,10 +81,13 @@ const qtyInput = document.querySelector('.qty-input');
 const buyBtn = document.querySelector('.btn-buy');
 const sellBtn = document.querySelector('.btn-sell');
 const toast = document.getElementById('trade-toast');
+const searchInput = document.querySelector('.search-wrap input');
 
 function initApp() {
     loadState();
     if(typeof lucide !== 'undefined') lucide.createIcons();
+
+    // Initial Render
     renderWatchlist();
     renderTradeDesk();
     renderSummary();
@@ -81,57 +95,93 @@ function initApp() {
     renderHistory();
     initChart();
 
-    setInterval(tickMarketPrices, priceTicker);
+    // Start API Polling (Instead of setInterval logic)
+    pollMarketAPI();
 }
 
-function tickMarketPrices() {
-    const volMode = volatilitySlider ? parseInt(volatilitySlider.value) : 1;
-    const currentVol = tickVolatile * (volMode * 0.5);
+// =====================================
+// THE ASYNC API FETCHING LAYER
+// =====================================
+async function fetchMarketData() {
+    try {
 
-    state.market = state.market.map(stock => {
-        const movePercent = (Math.random() - 0.5) * 2 * currentVol;
-        const newPrice = stock.currentPrice * (1 + movePercent);
-        return {
-            ...stock,
-            currentPrice: newPrice,
-            change: stock.change + (movePercent * 100)
-        };
-    });
+        // Simulating Network Latency (500ms)
+        return await new Promise((resolve) => {
+            setTimeout(() => {
+                const volMode = volatilitySlider ? parseInt(volatilitySlider.value) : 1;
+                const currentVol = 0.018 * (volMode * 0.5);
 
-    saveState();
-    renderWatchlist();
-    renderTradeDesk();
-    renderSummary();
-    renderHoldings();
+                const newMarketData = state.market.map(stock => {
+                    const movePercent = (Math.random() - 0.5) * 2 * currentVol;
+                    const newPrice = stock.currentPrice * (1 + movePercent);
+                    return {
+                        ...stock,
+                        currentPrice: newPrice,
+                        change: stock.change + (movePercent * 100)
+                    };
+                });
+                resolve(newMarketData);
+            }, 500);
+        });
+
+    } catch (error) {
+        console.error("API Fetch Failed:", error);
+        // Visual indicator for API Failure
+        const statusBtn = document.querySelector('.api-status');
+        if(statusBtn) {
+            statusBtn.style.color = '#ef4444';
+            statusBtn.style.borderColor = 'rgba(239,68,68,0.3)';
+            statusBtn.innerHTML = '<span class="live-dot"><span class="dot" style="background:#ef4444"></span></span> Error';
+        }
+        throw error;
+    }
 }
-// Search Bar Logic
-let searchQuery = '';
-const searchInput = document.querySelector('.search-wrap input');
 
-if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
-        searchQuery = e.target.value.toLowerCase();
-        renderWatchlist(); // Input type hote hi watchlist re-render hogi
-    });
+async function pollMarketAPI() {
+    if (isFetchingAPI) return;
+    isFetchingAPI = true;
+
+    try {
+        // Fetch new data via Async/Await
+        const newData = await fetchMarketData();
+
+        // Update State
+        state.market = newData;
+        saveState();
+
+        // Re-render UI
+        renderWatchlist();
+        renderTradeDesk();
+        renderSummary();
+        renderHoldings();
+
+    } catch (e) {
+        // Gracefully handle failure
+        console.log("Retrying in next polling cycle...");
+    } finally {
+        isFetchingAPI = false;
+        // Schedule next poll (3.5 seconds)
+        setTimeout(pollMarketAPI, 3500);
+    }
 }
+
+// =====================================
+// Renders (Same as before)
+// =====================================
+
 function renderWatchlist() {
-    const watchlist = document.querySelector('.watchlist');
+    const watchlist = document.getElementById('api-watchlist');
     if (!watchlist) return;
 
-    // Filter stocks based on search query (by ticker or company name)
     const filteredMarket = state.market.filter(stock =>
         stock.ticker.toLowerCase().includes(searchQuery) ||
         stock.name.toLowerCase().includes(searchQuery)
     );
 
-    // Agar koi stock nahi mila
     if (filteredMarket.length === 0) {
         watchlist.innerHTML = `<div style="padding: 20px; text-align: center; color: #64748b; font-size: 12px;">No matching stocks found.</div>`;
         return;
     }
-
-
-
 
     watchlist.innerHTML = filteredMarket.map(stock => {
         const isUp = stock.change >= 0;
@@ -149,6 +199,7 @@ function renderWatchlist() {
         `;
     }).join('');
 }
+
 window.setActiveStock = (symbol) => {
     activeSymbol = symbol;
     renderTradeDesk();
@@ -165,7 +216,6 @@ function renderTradeDesk() {
     const [whole, decimal] = stock.currentPrice.toFixed(2).split('.');
     document.querySelector('.big-price').innerHTML = `₹${parseInt(whole).toLocaleString('en-IN')}<span class="paise">.${decimal}</span>`;
 
-    // Day Stats
     const statOpen = document.getElementById('stat-open');
     const statPrev = document.getElementById('stat-prev');
     const statHigh = document.getElementById('stat-high');
@@ -176,7 +226,7 @@ function renderTradeDesk() {
     if (statLow) statLow.innerText = `₹${(stock.currentPrice * 0.978).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
 
     const qty = parseInt(qtyInput.value) || 1;
-    const estCost = (qty * stock.currentPrice).toLocaleString('en-IN', {minimumFractionDigits: 2});
+    const estCost = (qty * stock.currentPrice).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
     const estCostElement = document.querySelector('.est-cost strong');
     if(estCostElement) estCostElement.innerText = `₹${estCost}`;
 }
@@ -185,9 +235,7 @@ function renderSummary() {
     let portfolioValue = 0;
     state.portfolio.forEach(holding => {
         const currentStock = state.market.find(s => s.ticker === holding.ticker);
-        if (currentStock) {
-            portfolioValue += holding.qty * currentStock.currentPrice;
-        }
+        if (currentStock) portfolioValue += holding.qty * currentStock.currentPrice;
     });
 
     const netWorth = state.balance + portfolioValue;
@@ -212,9 +260,7 @@ function renderSummary() {
         }
     }
 
-    if (typeof updateLiveChart === 'function') {
-        updateLiveChart(netWorth);
-    }
+    if (typeof updateLiveChart === 'function') updateLiveChart(netWorth);
 }
 
 function renderHoldings() {
@@ -316,6 +362,14 @@ function renderHistory() {
     if(typeof lucide !== 'undefined') lucide.createIcons();
 }
 
+// Event Listeners
+if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value.toLowerCase();
+        renderWatchlist();
+    });
+}
+
 if (btnTheme) {
     btnTheme.addEventListener('click', () => {
         document.documentElement.classList.toggle('dark');
@@ -389,7 +443,7 @@ if (buyBtn) {
             renderHoldings();
             renderHistory();
         } else {
-            alert("Insufficient Cash Balance!");
+            showCustomAlert("Insufficient Cash Balance! Please sell some holdings to get more funds.");
         }
     });
 }
@@ -424,7 +478,7 @@ if (sellBtn) {
             renderHoldings();
             renderHistory();
         } else {
-            alert("Not enough shares to sell!");
+            showCustomAlert("Not enough shares to sell! Check your holdings quantity.");
         }
     });
 }
@@ -436,9 +490,12 @@ function showToast(msg) {
 }
 window.hideToast = () => toast.classList.remove('visible');
 
-// =====================================
-// Dynamic Chart Logic
-// =====================================
+window.addEventListener('load', () => {
+    const splash = document.getElementById('splash-screen');
+    if (splash) setTimeout(() => splash.classList.add('hidden'), 1500);
+});
+
+// Chart Logic
 let portfolioChart;
 
 function initChart() {
@@ -525,5 +582,27 @@ function updateLiveChart(currentNetWorth) {
         portfolioChart.update('none');
     }
 }
+
+// =====================================
+// Custom Alert Logic
+// =====================================
+function showCustomAlert(msg) {
+    const overlay = document.getElementById('custom-alert');
+    const msgEl = document.querySelector('.alert-msg');
+    if (overlay && msgEl) {
+        msgEl.innerText = msg;
+        overlay.classList.remove('hidden');
+    }
+}
+
+window.closeAlert = () => {
+    const overlay = document.getElementById('custom-alert');
+    if (overlay) {
+        overlay.classList.add('hidden');
+    }
+};
+
+
+
 
 document.addEventListener('DOMContentLoaded', initApp);

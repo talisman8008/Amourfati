@@ -1452,3 +1452,294 @@ html:not(.dark) .toast-inner {
     background: #1e293b;
     color: #fff;
 }
+
+
+/* ══════════════════════════════════════════════════
+   SPLASH SCREEN
+   ══════════════════════════════════════════════════ */
+.splash-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+}
+
+html.dark .splash-screen { background: #020617; }
+html:not(.dark) .splash-screen { background: #f8fafc; }
+
+.splash-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.splash-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: splashIn 0.6s ease-out forwards;
+}
+
+.splash-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+}
+
+.splash-title {
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: -0.025em;
+    margin-bottom: 8px;
+}
+
+html.dark .splash-title { color: #fff; }
+html:not(.dark) .splash-title { color: #0f172a; }
+
+.splash-title span { color: #10b981; }
+
+.splash-subtitle {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 32px;
+}
+
+html.dark .splash-subtitle { color: #64748b; }
+html:not(.dark) .splash-subtitle { color: #94a3b8; }
+
+.loader {
+    width: 60px;
+    height: 4px;
+    background: rgba(16, 185, 129, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.loader::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    background: #10b981;
+    border-radius: 4px;
+    animation: loadAnim 1s infinite ease-in-out alternate;
+}
+
+@keyframes splashIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes loadAnim {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(200%); }
+}
+
+
+/* ==========================================================================
+   LIGHT MODE: GRADIENT BACKGROUND & GLASSMORPHISM
+   ========================================================================== */
+
+/* 1. Subtle Premium Gradient Background */
+html:not(.dark) body {
+    /* Halka grey/blue aur white ka smooth mix */
+    background: linear-gradient(135deg, #fdfbfb 0%, #f1f5f9 50%, #e2e8f0 100%);
+    background-attachment: fixed; /* Taaki scroll karne par gradient apni jagah rahe */
+}
+
+/* 2. Glassmorphism for Navbar */
+html:not(.dark) .navbar {
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* 3. Glassmorphism for  Summary Cards */
+html:not(.dark) .card {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.05);
+}
+
+
+html:not(.dark) .panel,
+html:not(.dark) .chart-panel {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.08);
+}
+
+
+html:not(.dark) .stat-cell,
+html:not(.dark) .order-panel,
+html:not(.dark) .search-sort,
+html:not(.dark) .holdings-header,
+html:not(.dark) .chart-header {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+html:not(.dark) .wl-item.active {
+    background: rgba(255, 255, 255, 0.7);
+    border-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+html:not(.dark) .input-field,
+html:not(.dark) .select-field {
+    background: rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+html:not(.dark) .qty-input-wrap {
+    background: rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+html:not(.dark) .qty-btn:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/* ==========================================================================
+   CHART.JS POSITION & RESPONSIVE FIX
+   ========================================================================== */
+
+/* 1. Reset the chart body to be a stable container */
+.chart-body {
+    position: relative;
+    flex: 1; /* Fills remaining space in the panel */
+    width: 100%;
+    min-height: 350px; /* Gives it a solid base height on desktop */
+}
+
+/* 2. The magic wrapper that locks the canvas in place */
+.chart-wrapper {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+}
+
+/* 3. Ensure Canvas completely fills the wrapper without overflowing */
+.chart-wrapper canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+}
+
+/* 4. Shrink chart height safely on mobile phones */
+@media (max-width: 768px) {
+    .chart-body {
+        min-height: 250px;
+    }
+    .chart-wrapper {
+        top: 10px; left: 10px; right: 10px; bottom: 10px;
+    }
+}
+
+
+/* ==========================================================================
+   CUSTOM ALERT MODAL
+   ========================================================================== */
+.alert-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(2, 6, 23, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.3s ease;
+}
+
+.alert-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.alert-box {
+    width: 90%;
+    max-width: 340px;
+    border-radius: 24px;
+    padding: 24px;
+    text-align: center;
+    border: 1px solid;
+    transform: translateY(0) scale(1);
+    transition: transform 0.3s ease;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+html.dark .alert-box { background: #0f172a; border-color: #1e293b; }
+html:not(.dark) .alert-box { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(16px); border-color: #e2e8f0; }
+
+.alert-overlay.hidden .alert-box {
+    transform: translateY(20px) scale(0.95);
+}
+
+.alert-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(244, 63, 94, 0.1);
+    color: #f43f5e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px auto;
+    border: 1px solid rgba(244, 63, 94, 0.2);
+}
+
+.alert-title {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.alert-msg {
+    font-size: 14px;
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+html.dark .alert-msg { color: #94a3b8; }
+html:not(.dark) .alert-msg { color: #475569; }
+
+.alert-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    background: #f43f5e;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.alert-btn:hover { background: #e11d48; }
