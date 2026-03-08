@@ -163,6 +163,13 @@ input[type=range]::-moz-range-thumb {
 
 
 /*LIVE INDICATOR DOT */
+.live-dot {
+    display: flex;
+    position: relative;
+    width: 8px;
+    height: 8px;
+}
+
 .live-dot .ping {
     position: absolute;
     display: inline-flex;
@@ -182,6 +189,15 @@ input[type=range]::-moz-range-thumb {
     border-radius: 50%;
     background: #10b981;
 }
+/*===============*/
+/*panel card sys*/
+/*===============*/
+
+
+
+
+
+
 /*=======================*/
 /*MAIN TRADING AREA*/
 /*=======================*/
@@ -358,7 +374,9 @@ html:not(.dark) .card-value .decimal {
 
 
 
-
+/*=============================*/
+/*TRADING GRID */
+/*============================*/
 
 
 .trading-grid {
@@ -386,6 +404,9 @@ html:not(.dark) .card-value .decimal {
     text-transform: uppercase;
     letter-spacing: 0.1em;
 }
+/*===============*/
+/*search,sort*/
+/*===============*/
 .search-sort {
     padding: 12px;
     border-bottom: 1px solid;
@@ -393,6 +414,11 @@ html:not(.dark) .card-value .decimal {
     flex-direction: column;
     gap: 10px;
 }
+
+
+/*=========================*/
+/*watchhlistttt*/
+/*=========================*/
 
 .watchlist {
     overflow-y: auto;
