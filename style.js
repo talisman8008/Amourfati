@@ -117,12 +117,17 @@ let state={
     balance:initBalance,
     mrkt:[],
     portfolio:[],
-}
+    history:[]
+};
+let activeSymbol='AAPL' //default active stock
+
 //initilize state
 function initFreshState(){
     state.balance = initBalance;
     state.mrkt = defaultMarket.map(s=>({...s,change:0}))
     state.portfolio=[];
+    state.history=[];
+    saveState();
 }
 
 // =====================================
@@ -142,6 +147,8 @@ function loadState() {
 
         state.balance = typeof saved.balance === 'number' ? saved.balance : initBalance;
         state.portfolio = Array.isArray(saved.portfolio) ? saved.portfolio : [];
+        state.history = Array.isArray(saved.history) ? saved.history : [];
+
         state.market = defaultMarket.map(s => ({
             ...s,
             currentPrice: priceMap[s.ticker]?.price ?? s.currentPrice,
@@ -150,4 +157,64 @@ function loadState() {
     } catch {
         initFreshState();
     }
+}
+
+function saveState(){
+    localStorage.setItem(storageKey, JSON.stringify(state));
+}
+
+// ======================================
+// // ui starts
+// ======================================
+const btnTheme = document.getElementById('btn-theme');
+const btnReset = document.getElementById('btn-reset');
+const volatilitySlider = document.getElementById('volatility-slider');
+const qtyInput = document.querySelector('.qty-input');
+const buyBtn = document.querySelector('.btn-buy');
+const sellBtn = document.querySelector('.btn-sell');
+const toast = document.getElementById('trade-toast');
+
+// ==================
+//functions
+// ==================
+
+// market logic
+function tickMarketPrices() {
+    const volMode = volatilitySlider ? parseInt(volatilitySlider.value) : 1;
+    // Base volatility from your constants, scaled by slider
+    const currentVol = tickVolatile * (volMode * 0.5);
+
+    state.market = state.market.map(stock => {
+        const movePercent = (Math.random() - 0.5) * 2 * currentVol;
+        const newPrice = stock.currentPrice * (1 + movePercent);
+        return {
+            ...stock,
+            currentPrice: newPrice,
+            change: stock.change + (movePercent * 100)
+        };
+    });
+
+    saveState();
+    renderWatchlist();
+    renderTradeDesk();
+    renderSummary();
+    renderHoldings();
+}
+
+
+
+
+
+
+//main initilize
+function initApp() {
+    loadState();
+    lucide.createIcons();
+    renderWatchlist();
+    renderTradeDesk();
+    renderSummary();
+    renderHoldings();
+
+    // Start market engine
+    setInterval(tickMarketPrices, priceTicker);
 }
