@@ -111,7 +111,7 @@ const searchInput = document.querySelector('.search-wrap input');
 if (searchInput) {
     searchInput.addEventListener('input', (e) => {
         searchQuery = e.target.value.toLowerCase();
-        renderWatchlist(); // Input type hote hi watchlist re-render hogi
+        renderWatchlist(); 
     });
 }
 function renderWatchlist() {
@@ -124,14 +124,10 @@ function renderWatchlist() {
         stock.name.toLowerCase().includes(searchQuery)
     );
 
-    // Agar koi stock nahi mila
     if (filteredMarket.length === 0) {
         watchlist.innerHTML = `<div style="padding: 20px; text-align: center; color: #64748b; font-size: 12px;">No matching stocks found.</div>`;
         return;
     }
-
-
-
 
     watchlist.innerHTML = filteredMarket.map(stock => {
         const isUp = stock.change >= 0;
