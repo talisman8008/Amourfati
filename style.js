@@ -2,7 +2,7 @@
 // Initializing vars and consts
 // =============================
 const storageKey = 'state_v1';
-const initBalance = 100000; // Updated to 1 Lakh to match your HTML summary
+const initBalance = 100000; //iniital balance
 const priceTicker = 3500; // time in ms
 const tickVolatile = 0.018; // +-1.8%
 
@@ -40,7 +40,7 @@ function initFreshState() {
 }
 
 // =====================================
-// Local memory storage for persistence
+// Local memory storage
 // =====================================
 function loadState() {
     try {
@@ -122,7 +122,7 @@ function tickMarketPrices() {
     renderHoldings();
 }
 
-// Render Left Panel (Watchlist)
+//Watchlist
 function renderWatchlist() {
     const watchlist = document.querySelector('.watchlist');
     if (!watchlist) return;
@@ -150,7 +150,7 @@ window.setActiveStock = (symbol) => {
     renderWatchlist();
 };
 
-// Render Center Panel (Trade Desk)
+// Trade Desk
 function renderTradeDesk() {
     const stock = state.market.find(s => s.ticker === activeSymbol);
     if (!stock) return;
@@ -200,7 +200,7 @@ function renderSummary() {
     }
 }
 
-// Render Right Panel (My Holdings)
+// My Holdings
 function renderHoldings() {
     const list = document.querySelector('.holdings-list');
     if (!list) return;
@@ -349,5 +349,5 @@ function showToast(msg) {
 }
 window.hideToast = () => toast.classList.remove('visible');
 
-// Boot up
+
 document.addEventListener('DOMContentLoaded', initApp);
