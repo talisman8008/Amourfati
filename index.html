@@ -132,17 +132,13 @@
   </div>
 </div>
 <script>
-  // Icons load karne ke liye
   lucide.createIcons();
 
   const loginForm = document.getElementById('login-form');
   const loginBtn = document.querySelector('.login-btn');
-
-  // Yeh function redirection aur animation handle karta hai
   function startLoginFlow() {
-    // Button ko loading state mein daalo
     loginBtn.innerHTML = '<i data-lucide="loader" class="spin" style="width:20px;height:20px;margin:auto;"></i>';
-    loginBtn.disabled = true; // Multiple clicks rokne ke liye
+    loginBtn.disabled = true; 
     lucide.createIcons();
 
     // Actual redirection logic
@@ -151,16 +147,14 @@
     }, 800);
   }
 
-  // 1. Mouse se click
+  // 1. Mouse click
   loginForm.addEventListener('submit', function(e) {
     e.preventDefault();
     startLoginFlow();
   });
-  // 2. Keyboard se Enter (Global Listener)
+  // 2. Keyboard Enter 
   document.addEventListener('keydown', function(event) {
-    // Check agar Modal ya Alert open toh nahi (Safety check)
     if (event.key === 'Enter') {
-      // Agar user ne fields bhar di hain, tabhi flow start karo
       if (loginForm.checkValidity()) {
         e.preventDefault();
         startLoginFlow();
