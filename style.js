@@ -95,7 +95,7 @@ function initApp() {
     renderHistory();
     initChart();
 
-    // Start API Polling (Instead of setInterval logic)
+    // Start API Polling
     pollMarketAPI();
 }
 
@@ -166,7 +166,7 @@ async function pollMarketAPI() {
 }
 
 // =====================================
-// Renders (Same as before)
+// Renders 
 // =====================================
 
 function renderWatchlist() {
@@ -177,12 +177,10 @@ function renderWatchlist() {
         stock.ticker.toLowerCase().includes(searchQuery) ||
         stock.name.toLowerCase().includes(searchQuery)
     );
-
     if (filteredMarket.length === 0) {
         watchlist.innerHTML = `<div style="padding: 20px; text-align: center; color: #64748b; font-size: 12px;">No matching stocks found.</div>`;
         return;
     }
-
     watchlist.innerHTML = filteredMarket.map(stock => {
         const isUp = stock.change >= 0;
         return `
@@ -199,13 +197,11 @@ function renderWatchlist() {
         `;
     }).join('');
 }
-
 window.setActiveStock = (symbol) => {
     activeSymbol = symbol;
     renderTradeDesk();
     renderWatchlist();
 };
-
 function renderTradeDesk() {
     const stock = state.market.find(s => s.ticker === activeSymbol);
     if (!stock) return;
@@ -230,7 +226,6 @@ function renderTradeDesk() {
     const estCostElement = document.querySelector('.est-cost strong');
     if(estCostElement) estCostElement.innerText = `₹${estCost}`;
 
-    // style.js ke renderTradeDesk function ke andar search kar:
     const marketStatus = document.querySelector('.market-status');
     if (marketStatus) {
         marketStatus.innerHTML = `<i data-lucide="clock"></i> Market Open`;
@@ -615,18 +610,9 @@ window.closeAlert = () => {
 function updateMarketTimer() {
     const timerElement = document.getElementById('market-timer');
     if (!timerElement) return;
-
-    /* INTERVIEW TIP: Bolna ki "For the purpose of this demo, I've implemented a
-       Presentation Mode that overrides the real-time clock to ensure the
-       dashboard remains active and the countdown logic can be showcased."
-    */
-
-    // Real time ki jagah hum ek static 2-hour countdown simulate karenge
-    // Jo har second kam hoga lekin kabhi 'Closed' nahi hoga demo ke waqt
+ 
     const now = new Date();
 
-    // Hum assume kar rahe hain ki market 2 hours 45 mins mein band hoga
-    // Yeh countdown hamesha active dikhega
     const mockH = 02;
     const mockM = 45;
     const mockS = 60 - now.getSeconds();
@@ -635,11 +621,9 @@ function updateMarketTimer() {
 
     timerElement.innerText = `${mockH.toString().padStart(2, '0')}h ${displayM.toString().padStart(2, '0')}m ${mockS.toString().padStart(2, '0')}s`;
 
-    // Hamesha green rakho presentation ke liye
     timerElement.style.color = "#34d399";
 }
 
-// Call it in initApp and also set interval
 setInterval(updateMarketTimer, 1000);
 
 document.addEventListener('DOMContentLoaded', initApp);
