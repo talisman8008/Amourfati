@@ -1,6 +1,4 @@
-/* ══════════════════════════════════════════════════
-   VirtualTrade — Pure CSS
-   ══════════════════════════════════════════════════ */
+
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -1558,7 +1556,7 @@ html:not(.dark) .splash-subtitle { color: #94a3b8; }
 html:not(.dark) body {
     /* Halka grey/blue aur white ka smooth mix */
     background: linear-gradient(135deg, #fdfbfb 0%, #f1f5f9 50%, #e2e8f0 100%);
-    background-attachment: fixed; /* Taaki scroll karne par gradient apni jagah rahe */
+    background-attachment: fixed; 
 }
 
 /* 2. Glassmorphism for Navbar */
@@ -1626,9 +1624,9 @@ html:not(.dark) .qty-btn:hover {
 /* 1. Reset the chart body to be a stable container */
 .chart-body {
     position: relative;
-    flex: 1; /* Fills remaining space in the panel */
+    flex: 1; 
     width: 100%;
-    min-height: 350px; /* Gives it a solid base height on desktop */
+    min-height: 350px;
 }
 
 /* 2. The magic wrapper that locks the canvas in place */
